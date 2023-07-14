@@ -65,6 +65,7 @@ WHERE termdate IS NULL
 GROUP BY gender;
 
 -- 2. What is the race breakdown of employees in the company
+
 SELECT race , COUNT(*) AS count
 FROm `human resources`
 WHERE termdate IS NULL
@@ -85,4 +86,91 @@ SELECT
     WHERE termdate IS NULL
     GROUP BY age_group
     ORDER BY age_group;
-                                                                                                                                                                                                                                              
+  
+ -- 4. How many employees work at HQ vs remote
+ 
+SELECT location,COUNT(*) AS count
+FROm `human resources`
+WHERE termdate IS NULL
+GROUP BY location; 
+
+-- 5. What is the average length of employement who have been teminated.
+
+SELECT ROUND(AVG(year(termdate) - year(hire_date)),0) AS length_of_emp
+FROM `human resources`
+WHERE termdate IS NOT NULL AND termdate <= curdate();
+
+-- 6. How does the gender distribution vary acorss dept. and job titles
+SELECT *  FROM `human resources`;
+
+SELECT department,jobtitle,gender,COUNT(*) AS count
+FROM `human resources`
+WHERE termdate IS NOT NULL
+GROUP BY department, jobtitle,gender
+ORDER BY department, jobtitle,gender;
+
+SELECT department,gender,COUNT(*) AS count
+FROM `human resources`
+WHERE termdate IS NOT NULL
+GROUP BY department,gender
+ORDER BY department,gender;
+
+-- 7. What is the distribution of jobtitles acorss the company
+
+SELECT jobtitle, COUNT(*) AS count
+FROm `human resources`
+WHERE termdate IS NULL
+GROUP BY jobtitle;
+
+-- 8. Which dept has the higher turnover/termination rate
+
+SELECT * FROM hr
+
+SELECT department,
+		COUNT(*) AS total_count,
+        COUNT(CASE
+				WHEN termdate IS NOT NULL AND termdate <= curdate() THEN 1 
+				END) AS terminated_count,
+		ROUND((COUNT(CASE
+					WHEN termdate IS NOT NULL AND termdate <= curdate() THEN 1 
+                    END)/COUNT(*))*100,2) AS termination_rate
+		FROM hr
+        GROUP BY department
+        ORDER BY termination_rate DESC
+        
+        
+-- 9. What is the distribution of employees across location_state
+SELECT location_state, COUNT(*) AS count
+FROm `human resources`
+WHERE termdate IS NULL
+GROUP BY location_state;
+
+SELECT location_city, COUNT(*) AS count
+FROm `human resources`
+WHERE termdate IS NULL
+GROUP BY location_city;
+
+-- 10. How has the companys employee count changed over time based on hire and termination date.
+SELECT * FROM `human resources`;
+
+SELECT year,
+		hires,
+        terminations,
+        hires-terminations AS net_change,
+        (terminations/hires)*100 AS change_percent
+	FROM(
+			SELECT YEAR(hire_date) AS year,
+            COUNT(*) AS hires,
+            SUM(CASE 
+					WHEN termdate IS NOT NULL AND termdate <= curdate() THEN 1 
+				END) AS terminations
+			FROM `human resources`
+            GROUP BY YEAR(hire_date)) AS subquery
+GROUP BY year
+ORDER BY year;
+
+-- 11. What is the tenure distribution for each dept.
+SELECT department, round(avg(datediff(termdate,hire_date)/365),0) AS avg_tenure
+FROM `human resources`
+WHERE termdate IS NOT NULL AND termdate<= curdate()
+GROUP BY department
