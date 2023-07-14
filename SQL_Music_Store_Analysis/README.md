@@ -13,7 +13,7 @@ SQL project to analyze online music store data
 #### user defined stored procedure are created by database developer or database administractors. these contains one more more sql statement to select, update, delete records from database tables.
 
 #### system stored procedure are created and executed by sql server for the server administrative activities.
-
+---
 ### How to create stored procedure
 ```diff
 - DELIMITER //
