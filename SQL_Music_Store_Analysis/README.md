@@ -7,6 +7,7 @@ SQL project to analyze online music store data
 * A stored procedure is a sereis of declarative SQL statements.
 * A stored procedure can be stored in the database and can be reused over and over again.
 * Parameter can be passed to a stored procedure. show that the store procedure can act based on the parameter values.
+  ---
 ### Types of store procedure
 * user defined stored procedure
 * System stored procedure
