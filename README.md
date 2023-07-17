@@ -19,3 +19,7 @@
 ```diff
 + SELECT MIN(column_name) FROM table_name;
 ```
+6. **GROUP BY:** Group rows based on a specified column.
+```diff
++ SELECT column_name, aggregate_function(column_name) FROM table_name GROUP BY column_name;
+```   
