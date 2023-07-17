@@ -7,3 +7,7 @@
 ```diff
 + SELECT SUM(column_name) FROM table_name;
 ```
+3. **COUNT():** Count the number of rows or non-null values in a column.
+```diff
++ SELECT COUNT(column_name) FROM table_name;
+```
