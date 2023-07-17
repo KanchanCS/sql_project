@@ -3,3 +3,7 @@
   ```diff
 + SELECT AVG(column_name) FROM table_name;
 ```
+2. **SUM():** Get the sum of values in a column.
+```diff
++ SELECT SUM(column_name) FROM table_name;
+```
