@@ -11,3 +11,11 @@
 ```diff
 + SELECT COUNT(column_name) FROM table_name;
 ```
+4. **MAX():** Finf the maximum value in a column.
+```diff
++ SELECT MAX(column_name) FROM table_name;
+```
+5. **MIN():** Discover the minimum value in a column.
+```diff
++ SELECT MIN(column_name) FROM table_name;
+```
