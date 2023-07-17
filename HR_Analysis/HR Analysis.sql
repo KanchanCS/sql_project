@@ -49,13 +49,46 @@ WHERE termdate = '';
 ALTER TABLE `human resources`
 ADD column age INT;
 
+
 UPDATE `human resources`
 SET age = timestampdiff(YEAR,birthdate,curdate());
 
 SELECT min(age), max(age) FROM `human resources`;
 select * from `human resources`;
 
--- 1. What is the gender breakdown of employees in the company
+# 1 Write a query to display the names (first_name, last_name) using alias name “First Name", "Last Name" 
+select first_name as "First Name" , last_name as "Last Name" from  `human resources`;
+
+# 2 Write a query to get unique emp_id from employee table 
+select distinct emp_id from `human resources`;
+
+# 3 Write a query to get all employee details from the employee table order by first name, descending 
+select first_name from `human resources` order by first_name desc ;
+
+# 4 Write a query to get the number of employees working with the company 
+select count(*) from `human resources`;
+
+# 5 Write a query to get the number of jobs available in the employees table 
+select count(distinct emp_id) from `human resources`;
+
+# 6 Write a query get all first name from employees table in upper case
+select upper(first_name) from `human resources`;
+
+# 7 Write a query to get the first 3 characters of first name from employees table 
+select left(first_name,3) from `human resources`;
+select substring(first_name,1,3) from `human resources`;
+select mid(first_name,1,3) from `human resources`;
+
+# 8 Write a query to get first name from employees table after removing white spaces from both side 
+select trim(first_name) from `human resources`;
+
+# 9 Write a query to get the length of the employee names (first_name, last_name) from employees table 
+select first_name, last_name, length(first_name)+length(last_name) from `human resources`;
+
+# 10 Write a query to check if the first_name fields of the employees table contains numbers 
+select first_name from `human resources` where first_name regexp '[0-7]';
+
+-- 11. What is the gender breakdown of employees in the company
 
 SELECT * FROM `human resources`;
 
@@ -64,7 +97,7 @@ FROM `human resources`
 WHERE termdate IS NULL
 GROUP BY gender;
 
--- 2. What is the race breakdown of employees in the company
+-- 12. What is the race breakdown of employees in the company
 
 SELECT race , COUNT(*) AS count
 FROm `human resources`
